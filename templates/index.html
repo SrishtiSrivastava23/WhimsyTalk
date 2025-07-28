@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WhimsyTalk</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="chat-container">
+    <h1>WhimsyTalk</h1>
+
+    <div id="chat-box" class="chat-box">
+      <!-- Messages will appear here -->
+    </div>
+
+
+    <div class="input-area">
+      <input id="msg" type="text" placeholder="Type a message...💌" autocomplete="off" />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- CryptoJS for encryption -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <!-- Socket.IO CDN -->
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+
+  <script>
+    // Prompt username until a non-empty one is entered
+    let username = "";
+    while (!username) {
+      username = prompt("Enter your username 🧸").trim();
+    }
+
+    // Secret key for AES encryption — in a real app, securely share this!
+    const secretKey = "supersecretkey123";
+
+    const socket = io();
+    const chatBox = document.getElementById("chat-box");
+    const input = document.getElementById("msg");
+
+    function sendMessage() {
+      const text = input.value.trim();
+      if (text === "") return;
+
+      // Encrypt message before sending
+      const encrypted = CryptoJS.AES.encrypt(text, secretKey).toString();
+
+      const msgData = {
+        username: username,
+        message: encrypted
+      };
+
+      socket.emit("chat", msgData); // Send encrypted message to server
+      input.value = "";
+    }
+    const typingIndicator = document.getElementById("typing-indicator");
+let typingTimeout;
+
+input.addEventListener("input", () => {
+  socket.emit("typing", { username: username });
+
+  clearTimeout(typingTimeout);
+  typingTimeout = setTimeout(() => {
+    socket.emit("stopTyping", { username: username });
+  }, 1000);  // stop typing after 1 sec of no input
+});
+
+    socket.on("chat", function(data) {
+      // Decrypt message after receiving
+      let decryptedMsg = "";
+      try {
+        const bytes = CryptoJS.AES.decrypt(data.message, secretKey);
+        decryptedMsg = bytes.toString(CryptoJS.enc.Utf8);
+      } catch (e) {
+        decryptedMsg = "[Could not decrypt message]";
+      }
+
+      const bubble = document.createElement("div");
+      bubble.classList.add("bubble");
+
+      if (data.username === username) {
+        bubble.classList.add("user");
+        bubble.innerText = `You: ${decryptedMsg}`;
+      } else {
+        bubble.classList.add("partner");
+        bubble.innerText = `${data.username}: ${decryptedMsg}`;
+      }
+
+      chatBox.appendChild(bubble);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+    // Send message on Enter key
+    input.addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    });
+  </script>
+</body>
+</html>

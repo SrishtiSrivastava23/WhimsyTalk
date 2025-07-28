@@ -1,0 +1,106 @@
+/* style.css */
+body {
+  margin: 0;
+  padding: 0;
+  background: #FFF0F5; /* pastel pink */
+font-family: 'Lobster', cursive;
+font-size: 20px;
+}
+
+.chat-container {
+  max-width: 500px;
+  margin: 40px auto;
+  background: #FFFAFA;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(255, 182, 193, 0.3);
+}
+
+h1 {
+  text-align: center;
+  color: #FF69B4;
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 400px;
+  overflow-y: auto;
+  background: #FFF5F7;
+  border-radius: 15px;
+  padding: 15px;
+
+  background-image: url('/static/img/kawaii.png'); /* adjust path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.input-area {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.bubble {
+  padding: 10px 14px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  max-width: 70%;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  word-wrap: break-word;
+  display: inline-block;
+  clear: both;
+}
+
+.user {
+  background-color: #db7093;
+  color: white;
+  align-self: flex-end;
+  margin-left: auto;
+  border-bottom-right-radius: 0;
+}
+
+.partner {
+  background-color: #D0F0FF;
+  color: #222222;
+  align-self: flex-start;
+  margin-right: auto;
+  border-bottom-left-radius: 0;
+}
+
+
+input[type="text"] {
+  flex-grow: 1;
+  min-width: 0;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #FFB6C1;
+  border-radius: 25px;
+  outline: none;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+button {
+  width: 80px;
+  background: #FF69B4;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  animation: bounce 3s ease-in-out infinite;
+}
+
+button:hover {
+  background: #FF1493;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
