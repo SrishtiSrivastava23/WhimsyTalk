@@ -2,15 +2,15 @@
 A simple real-time chat app with end-to-end encryption built using Flask, Socket.IO, and CryptoJS
 
 ✨ Features
-Clean pastel-themed interface
+1.Clean pastel-themed interface
 
-End-to-end AES encryption (client-side)
+2.End-to-end AES encryption (client-side)
 
-Real-time chat with WebSockets
+3.Real-time chat with WebSockets
 
-Personalized username prompt
+4.Personalized username prompt
 
-“You vs Them” message layout
+5.“You vs Them” message layout
 
 📁 Project Structure
 ```
@@ -24,6 +24,9 @@ WhimsyTalk/
 │   ├── style.css         # Styling
 │   └── img/kawaii.png    # (Optional) background image
 ```
+
+![Screenshot](SS.png)
+
 
 🚀 Getting Started
 1. Install dependencies
