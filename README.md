@@ -25,7 +25,7 @@ WhimsyTalk/
 │   └── img/kawaii.png    # (Optional) background image
 ```
 
-![Screenshot](SS.png)
+![Screenshot](SS(1).png)
 
 
 🚀 Getting Started
